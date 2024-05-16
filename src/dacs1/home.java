@@ -481,7 +481,7 @@ public class home extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Room Number", "Room Type", "Bed", "Price", "Image", "Status"
+                "Room Number", "Room Type", "Bed", "Price", "Status", "Image"
             }
         ));
         jtbManageRoom.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1337,7 +1337,7 @@ public class home extends javax.swing.JFrame {
 
         String img = selectedImagePath != null ? "'" + selectedImagePath + "'" : "NULL";
 
-        String Query = "INSERT INTO room (roomNo, roomType, bed, price, img, status) VALUES ('" + roomNo + "', '" + roomType + "', '" + bed + "', " + price + ", " + img + ", 'Not Booked')";
+        String Query = "INSERT INTO room (roomNo, roomType, bed, price, status, img) VALUES ('" + roomNo + "', '" + roomType + "', '" + bed + "', " + price + ", 'Not Booked', '" + img + "')";
 
         // Thực hiện truy vấn sau khi kiểm tra dữ liệu
         InsertUpdateDelete.setData(Query, "Successfully Updated");
@@ -1358,12 +1358,12 @@ public class home extends javax.swing.JFrame {
         try {
             while (rs.next()) {
                 // Tạo ImageIcon từ đường dẫn ảnh
-                ImageIcon imageIcon = new ImageIcon(rs.getString(5)); // Cột 5 là đường dẫn ảnh trong ResultSet
+                ImageIcon imageIcon = new ImageIcon(rs.getString(6)); // Cột 6 là đường dẫn ảnh trong ResultSet
                 // Thay đổi kích thước ảnh để phù hợp với kích thước của JLabel
                 Image image = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
                 ImageIcon scaledIcon = new ImageIcon(image);
                 // Thêm dữ liệu vào table model
-                model.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), scaledIcon, rs.getString(6)});
+                model.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), scaledIcon});
             }
             rs.close();
         } catch (SQLException e) {
@@ -1705,7 +1705,7 @@ public class home extends javax.swing.JFrame {
                     cbBedM.setSelectedItem(rs.getString(3)); // Bed
                     tfPriceM.setText(rs.getString(4)); // Price
                     // Hiển thị hình ảnh của phòng
-                    String imgPath = rs.getString(5);
+                    String imgPath = rs.getString(6);
                     ImageIcon imageIcon = new ImageIcon(imgPath); // Tạo ImageIcon từ đường dẫn ảnh
                     // Thay đổi kích thước ảnh để phù hợp với kích thước của JLabel
                     Image image = imageIcon.getImage().getScaledInstance(lbImgContainer.getWidth(), lbImgContainer.getHeight(), Image.SCALE_SMOOTH);
@@ -1743,12 +1743,12 @@ public class home extends javax.swing.JFrame {
         try {
             while (rs.next()) {
                 // Tạo ImageIcon từ đường dẫn ảnh
-                ImageIcon imageIcon = new ImageIcon(rs.getString(5)); // Cột 5 là đường dẫn ảnh trong ResultSet
+                ImageIcon imageIcon = new ImageIcon(rs.getString(6)); // Cột 6 là đường dẫn ảnh trong ResultSet
                 // Thay đổi kích thước ảnh để phù hợp với kích thước của JLabel
                 Image image = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
                 ImageIcon scaledIcon = new ImageIcon(image);
                 // Thêm dữ liệu vào table model
-                model.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), scaledIcon, rs.getString(6)});
+                model.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), scaledIcon});
             }
             rs.close();
         } catch (SQLException e) {
@@ -1836,7 +1836,7 @@ public class home extends javax.swing.JFrame {
                     cbBedM.setSelectedItem(rs.getString(3)); // Bed
                     tfPriceM.setText(rs.getString(4)); // Price
                     // Hiển thị hình ảnh của phòng
-                    String imgPath = rs.getString(5);
+                    String imgPath = rs.getString(6);
                     ImageIcon imageIcon = new ImageIcon(imgPath); // Tạo ImageIcon từ đường dẫn ảnh
                     // Thay đổi kích thước ảnh để phù hợp với kích thước của JLabel
                     Image image = imageIcon.getImage().getScaledInstance(lbImgContainer.getWidth(), lbImgContainer.getHeight(), Image.SCALE_SMOOTH);
@@ -1844,7 +1844,7 @@ public class home extends javax.swing.JFrame {
                     // Hiển thị ảnh lên JLabel
                     lbImgContainer.setIcon(scaledIcon);
                     // Thêm hàng tìm thấy vào bảng
-                    model.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), scaledIcon, rs.getString(6)});
+                    model.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), scaledIcon});
                 } else {
                     JOptionPane.showMessageDialog(this, "Room not found.", "Not Found", JOptionPane.WARNING_MESSAGE);
                 }
